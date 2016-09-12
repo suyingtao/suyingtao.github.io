@@ -1,0 +1,174 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+body{
+    background-color: white;
+}
+.container .wrapper{
+    width:100%;
+    height:120px;
+    background-color: #f0f0f0;
+    margin:0px auto;
+}
+.container .wrapper .c_head{
+    background-color: #f0f0f0;
+    width:100%;
+    margin:0px auto;
+    height:90px;
+}
+.body{
+    background-color: white;
+    width: 100%;
+    height: auto;
+}
+.body .body_1{
+    width: 60%;
+    height: auto;
+    text-align: center;
+    margin: 20px auto;
+}
+.body .body_1 h1{
+    margin: 100px auto 100px auto;
+}
+.body .body_1 h2{
+    text-align: left;
+    margin: 100px auto 50px 180px;
+    font-weight: bolder;
+}
+.body .body_1 ul{
+    text-align: left;
+    margin: auto auto auto 250px;
+    line-height:32px;
+    font-size: 22px;
+    list-style-type: circle;
+    font-weight: bold;
+    color: #4f4f4f;
+    letter-spacing: 1.5px;
+
+}
+.body .body_1 a{
+    font-family: "Apple Color Emoji";
+    font-size: 20px;
+    color: black;
+    margin-left: 20px;
+    text-decoration: none;
+}
+.body .body_1 img{
+    margin-top:0px;
+    margin-right: 10px;
+    border-radius: 20px;
+    display:inline;
+    width:26px;
+    height:26px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+.container .wrapper .c_head .nav{
+    padding-bottom: 30px;
+    padding-top: 30px;
+    height: 30px;
+    width: 100%;
+    position: relative;
+}
+.container .wrapper .c_head .head_title a{
+    float:left;
+    font-family: "Apple Color Emoji";
+    font-size: 30px;
+    color: black;
+    margin-top: 10px;
+    margin-left: 200px;
+    text-decoration: none;
+
+}
+.container .wrapper .c_head .head_navbar ul{
+    margin-left: 60px;
+    float:left;
+    font-size: 20px;
+    list-style-type: none;
+    padding-top: 20px;
+    padding-bottom: 6px;
+    padding-left: 60px;
+}
+.container .wrapper .c_head .head_navbar a:link,a:visited{
+    font-weight: 100;
+    font-family: "Apple Braille";
+    font-size: small;
+    color:darkgray;
+    text-align: center;
+    padding: 6px;
+    text-decoration: none;
+}
+.container .wrapper .c_head .head_navbar a:hover,a:active{
+    color:dimgray;
+    background-color: #d0d0d0;
+}
+.container .wrapper .c_head .head_navbar li{
+    padding-left: 10px;
+    display:inline;
+}
+.container .wrapper .c_head .head_soptlight{
+    float:right;
+    display:inline;
+    margin-top: 24px;
+    width:100px;
+    height:26px;
+    margin-right: 40px;
+}
+.container .wrapper .c_head .head_img{
+    float:right;
+    display:inline;
+    margin-top: 20px;
+    margin-right: 100px;
+    border-radius: 30px;
+    width:26px;
+    height:26px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+form input{
+    height:20px;
+    border-radius: 30px;
+}
+.end{
+    text-align: center;
+    font-size: 13px;
+    padding-top: 6px;
+    margin: 5px auto;
+    line-height: 18px;
+    padding-bottom: 0px;
+    font-family: "Abadi MT Condensed Light";
+    background-color: #eeeeee;
+}
+.back-to-top {
+    position: fixed;
+    bottom: 19px;
+    right: 50px;
+    z-index: 1050;
+    width: 15px;
+    height: 13px;
+    padding: 5px;
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transform: translateZ(0);
+}
+@media (max-width: 767px) {
+    .back-to-top {
+        display: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .back-to-top {
+        display: none;
+    }
+}
+.back-to-top:before {
+    display: block;
+    content: " ";
+    margin-top: 2px;
+    width: 0;
+    height: 0;
+    border-width: 0 7px 8px 7px;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+}
