@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ECharts03</title>
+  </head>
+  <body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script src="echarts.min.js"></script>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="china.js"></script>
+    <script>
+    $.get('ne_110m_admin_0_countries.json', function (countries) {
+      echarts.registerMap('countries', countries);
+      var chart = echarts.init(document.getElementById('main'));
+      chart.setOption({
+          backgroundColor: '#404a59',
+          title : {
+          text: '世界地图',
+          subtext: 'BAIDU_IFE',
+          left: 'center',
+          textStyle : {
+                color: '#fff'
+              }
+          },
+          series: [{
+              type: 'map',
+              map: 'countries',
+              roam: true ,
+              zoom: 2 ,
+              scaleLimit: {
+                'max': 10,
+                'min': 0.1,
+              },
+              center: [115.97, 29.71],
+              nameMap: {
+              },
+              label:{
+                emphasis:{
+                  textStyle:{
+                    color: "#aaa",
+                    fontStyle: 'italic',
+                    fontWeight: 'bold',
+                  },
+                },
+              },
+              selectedMode: true ,
+              itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#404a59'
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+              },
+
+          }]
+      });
+    });
+    </script>
+  </body>
+</html>
