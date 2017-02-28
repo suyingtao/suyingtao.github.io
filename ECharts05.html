@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> ECharts04 </title>
+</head>
+
+<body>
+    <div id="main" style="width: 800px;height:600px;">
+    </div>
+    <script src="echarts.min.js"></script>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="A.js" type="text/javascript"></script>
+    <script>
+        var dates = new Array();
+        var data = new Array();
+        var volumns = new Array();
+        for (a = 0; a < 30; a++) {
+            dates.push(rawA[a][0]);
+            data.push([+rawA[a][2], +rawA[a][5], +rawA[a][4], +rawA[a][3]]);
+            volumns.push(rawA[a][6]);
+        }
+
+        function calculateMA(dayCount, data) {
+            var result = [];
+            for (var i = 0, len = data.length; i < len; i++) {
+                if (i < dayCount) {
+                    result.push('-');
+                    continue;
+                }
+                var sum = 0;
+                for (var j = 0; j < dayCount; j++) {
+                    sum += data[i - j][1];
+                }
+                result.push(sum / dayCount);
+            }
+            return result;
+        }
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            backgroundColor: '#21202D',
+            legend: {
+                data: ['日K', 'MA5', 'MA10', 'MA30'],
+                inactiveColor: '#777',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            series: [{
+                    type: 'candlestick',
+                    name: '日K',
+                    data: data,
+                    itemStyle: {
+                        normal: {
+                            color: '#FD1050',
+                            color0: '#0CF49B',
+                            borderColor: '#FD1050',
+                            borderColor0: '#0CF49B'
+                        }
+                    }
+                },
+                {
+                    name: 'MA5',
+                    type: 'line',
+                    data: calculateMA(5, data),
+                    smooth: true,
+                    showSymbol: false,
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    }
+                },
+                {
+                    name: 'MA10',
+                    type: 'line',
+                    data: calculateMA(10, data),
+                    smooth: true,
+                    showSymbol: false,
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    }
+                },
+                {
+                    name: 'MA30',
+                    type: 'line',
+                    data: calculateMA(30, data),
+                    smooth: true,
+                    showSymbol: false,
+                    lineStyle: {
+                        normal: {
+                            width: 1
+                        }
+                    }
+                },
+                {
+                    name: 'Volumn',
+                    type: 'bar',
+                    xAxisIndex: 1,
+                    yAxisIndex: 1,
+                    data: volumns
+                }
+            ],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    animation: false,
+                    lineStyle: {
+                        color: '#376df4',
+                        width: 2,
+                        opacity: 1
+                    }
+                }
+            },
+            grid: [{
+                    left: '10%',
+                    right: '8%',
+                    height: '50%'
+                },
+                {
+                    left: '10%',
+                    right: '8%',
+                    top: '63%',
+                    height: '16%'
+                }
+            ],
+            xAxis: [{
+                    type: 'category',
+                    data: dates,
+                    gridIndex: 0,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8392A5'
+                        }
+                    }
+                },
+                {
+                    type: 'category',
+                    gridIndex: 1,
+                    data: dates,
+                    scale: true,
+                    boundaryGap: false,
+                    axisLine: {
+                        onZero: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    splitNumber: 20,
+                    min: 'dataMin',
+                    max: 'dataMax'
+                }
+            ],
+
+            yAxis: [{
+                    scale: true,
+                    gridIndex: 0,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#8392A5'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                {
+                    scale: true,
+                    gridIndex: 1,
+                    splitNumber: 2,
+                    axisLabel: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                }
+            ],
+            brush: {
+                xAxisIndex: 'all',
+                brushLink: 'all',
+                outOfBrush: {
+                    colorAlpha: 0.1
+                }
+            },
+            dataZoom: [{
+                    type: 'inside',
+                    xAxisIndex: [0, 1],
+                    start: 50,
+                    end: 100
+                },
+                {
+                    show: true,
+                    xAxisIndex: [0],
+                    type: 'slider',
+                    top: '85%',
+                    start: 20,
+                    end: 100
+                }
+            ],
+        };
+
+        myChart.setOption(option);
+        myChart.dispatchAction({
+            type: 'brush',
+            areas: [{
+                brushType: 'lineX',
+                coordRange: ['20090923', '20091021'],
+                xAxisIndex: 0
+            }]
+        });
+        var load = setInterval(function() {
+
+            dates.push(rawA[a][0]);
+            data.push([+rawA[a][2], +rawA[a][5], +rawA[a][4], +rawA[a][3]]);
+            volumns.push(rawA[a][6]);
+            a++;
+            myChart.setOption({
+                series: [{
+                        type: 'candlestick',
+                        name: '日K',
+                        data: data,
+                        itemStyle: {
+                            normal: {
+                                color: '#FD1050',
+                                color0: '#0CF49B',
+                                borderColor: '#FD1050',
+                                borderColor0: '#0CF49B'
+                            }
+                        }
+                    },
+                    {
+                        name: 'MA5',
+                        type: 'line',
+                        data: calculateMA(5, data),
+                        smooth: true,
+                        showSymbol: false,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        }
+                    },
+                    {
+                        name: 'MA10',
+                        type: 'line',
+                        data: calculateMA(10, data),
+                        smooth: true,
+                        showSymbol: false,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        }
+                    },
+                    {
+                        name: 'MA30',
+                        type: 'line',
+                        data: calculateMA(30, data),
+                        smooth: true,
+                        showSymbol: false,
+                        lineStyle: {
+                            normal: {
+                                width: 1
+                            }
+                        }
+                    },
+                    {
+                        name: 'Volumn',
+                        type: 'bar',
+                        xAxisIndex: 1,
+                        yAxisIndex: 1,
+                        data: volumns
+                    }
+                ],
+                xAxis: [{
+                        type: 'category',
+                        data: dates,
+                        gridIndex: 0,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#8392A5'
+                            }
+                        }
+                    },
+                    {
+                        type: 'category',
+                        gridIndex: 1,
+                        data: dates,
+                        scale: true,
+                        boundaryGap: false,
+                        axisLine: {
+                            onZero: false
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        splitLine: {
+                            show: false
+                        },
+                        axisLabel: {
+                            show: false
+                        },
+                        splitNumber: 20,
+                        min: 'dataMin',
+                        max: 'dataMax'
+                    }
+                ],
+            });
+            if (a == rawA.length) {
+                clearInterval(load);
+            }
+        }, 200)
+    </script>
+</body>
+
+</html>
